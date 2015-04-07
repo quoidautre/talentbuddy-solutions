@@ -1,11 +1,13 @@
 <?php
 function remove_stopwords($query, $stopwords) {
-    $query = array_unique($query);
-    
     foreach($stopwords as $stop) {
         $pos = array_search($stop,$query);
         
-        if ($pos) unset($query[$pos]);
+        if ($pos !== false) {
+			foreach(array_keys($query,$stop) as $key) {
+				unset($query[$key]);
+			}			
+		}
     }
     array_walk($query,'display');
 }
